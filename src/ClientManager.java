@@ -64,7 +64,7 @@ public class ClientManager {
             try {
                 while (!isExit.get()) {
                     // 进入等待环节
-                    System.out.println("Wait NO:"+i+" device" );
+                    System.out.println("Wait NO:" + i + " device");
                     Socket client = server.accept();
                     HandleMsgTask task = new HandleMsgTask(i, client, receiveListener);
                     new Thread(task).start();
@@ -107,7 +107,7 @@ public class ClientManager {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                     reader.ready();
                     String line;
-                    while (((line = reader.readLine()) != null) && !connectStop) {
+                    while (!connectStop && ((line = reader.readLine()) != null)) {
                         if (ReceiveListener != null) {
                             ReceiveListener.onReceived(clientId, line);
                         }
